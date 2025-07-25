@@ -6,7 +6,7 @@
    <body>
       <div id="app">
          <div>
-            <input type="text" v-on:keydown.ctrl.enter="pressEnter"/>
+            <input type="text" v-on:keydown.ctrl.enter="pressEnter" />
             <button
                v-on:click.stop="buttonClick('vue is cool', 'react is cool', $event)"
             >
@@ -31,7 +31,7 @@
             }
 
             function pressEnter() {
-               alert("Enter was pressed")
+               alert("Enter was pressed");
             }
 
             return {
@@ -43,9 +43,4 @@
          },
       }).mount("#app");
    </script>
-   <style>
-      h1 {
-         font-size: 70px;
-      }
-   </style>
 </html>
