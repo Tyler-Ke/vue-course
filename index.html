@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+
+    <div id="app">
+        <div :style="{backgroundColor: 'aqua', fontSize: `${fontSizeTemp}px`}">
+          Hello World
+        </div>
+        <div :style="{backgroundColor: 'aqua', fontSize: '40px'}">
+          Hello World
+        </div>
+        <br /><br />
+        <span 
+          class="padding-medium" 
+          :class="{h1:isMainTitle(), 'bg-green':hasGreenBg()}"
+        >
+          Random Text
+        </span>
+        <br><br>
+        <span class="padding-medium" :class="isMainTitle() ? MainTitle : '', borderClass">
+          Random Text
+        </span>
+        <br><br>
+        <span :style="someStyle.style1">Some Style Text</span>
+    </div>
+      
+  </body>
+  <script>
+
+    const { createApp, ref, reactive } = Vue;
+    const fontSizeTemp = 60;
+    createApp({
+      setup(){
+        const MainTitle = {
+          h1: true,
+          'bg-grey': true,
+        };
+
+        const borderClass = {
+          border: true,
+        }
+
+        const someStyle = {
+          style1: {
+            fontSize: "40px",
+            backgroundColor: "lightgreen",
+            margin: "20px",
+            border: "1px solid black",
+          }
+        }
+
+        function isMainTitle() {
+          return false;
+        }
+
+        function hasGreenBg() {
+          return true;
+        }
+
+        return {
+          fontSizeTemp,
+          isMainTitle,
+          hasGreenBg,
+          MainTitle,
+          someStyle,
+          borderClass,
+        }
+      },
+    }).mount("#app");
+
+  </script>
+  <style>
+    .h1 {
+      font-size: 40px;
+      color: green;
+    }
+    .h2 {
+      font-size: 40px;
+      color: chocolate;
+    }
+    .bg-grey {
+      background-color: grey;
+    }
+    .bg-green {
+      background-color: lightgreen;
+    }
+    .padding-medium {
+      padding: 20px;
+    }
+    .border {
+      border: 1px solid red;
+    }
+  </style>
+</html>
