@@ -5,41 +5,47 @@
    </head>
    <body>
       <div id="app">
-         <div>
-            <input type="text" v-on:keydown.ctrl.enter="pressEnter" />
-            <button
-               v-on:click.stop="buttonClick('vue is cool', 'react is cool', $event)"
-            >
-               Click Me
-            </button>
-            <p>x: {{ x }} y: {{ y }}</p>
-         </div>
+         <div>Learn Vue</div>
+         <p>{{obj.count}}</p>
+         <p>{{getFullName}}</p>
+         <button v-on:click="obj.count++">Increment</button>
+         <button v-on:click="obj.count--">Decrement</button>
+         <br /><br />
+         <span>First Name: </span>
+         <input type="text" v-model="firstName" />
       </div>
    </body>
    <script>
-      const { createApp, ref, reactive } = Vue;
-      const fontSizeTemp = 60;
+      const { createApp, ref, reactive, computed, watch } = Vue;
+      let name = ref("Tyler");
+      let age = ref("14");
       createApp({
          setup() {
-            let x = ref(0);
-            let y = ref(0);
+            let counter = ref(0);
+            const obj = reactive({
+               count: 0,
+            })
+            let firstName = ref("Vincent");
+            let lastName = ref("Zhang");
 
-            function buttonClick(newMessage, newMessage2, event) {
-               x.value = event.x;
-               y.value = event.y;
-               alert(newMessage);
-            }
+            watch(() => obj.count, (newValue, oldValue) => {
+                  console.log(
+                     `Counter updated from ${oldValue} to ${newValue}`
+                  );
+                  if (newValue == 5) {
+                     alert("counter is 5");
+                  }
+               }
+            );
 
-            function pressEnter() {
-               alert("Enter was pressed");
-            }
+            const getFullName = computed((previous) => {
+               if (previous == "Vincent 1 Zhang") {
+                  console.log("Vincent Zhang is special");
+               }
+               return firstName.value + " " + lastName.value;
+            });
 
-            return {
-               buttonClick,
-               x,
-               y,
-               pressEnter,
-            };
+            return { counter, getFullName, firstName, obj };
          },
       }).mount("#app");
    </script>
